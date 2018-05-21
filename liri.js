@@ -1,7 +1,7 @@
 require("dotenv").config();
 var Twitter = require('twitter')
 var keys = require("./keys.js");
-var spotify = require('node-spotify-api');
+var Spotify = require('node-spotify-api');
 var request = require('request');
 var fs = require('fs')
 
@@ -14,19 +14,19 @@ for (var i = 3; i < process.argv.length; i++){
 }
 
 // Error Functions 
-function errorFunction(respError) {
-  if (respError) {
-      return console.log("Error occured: ", respError);
-   }
-};
-function errorFunctionStart (respError) {
-  errorFunction();
-  console.log("\n Log Started ");
-};
-function errorFunctionEnd (respError) {
-  errorFunction();
-  console.log("Log Ended");
-};
+// function errorFunction(respError) {
+//   if (respError) {
+//       return console.log("Error occured: ", respError);
+//    }
+// };
+// function errorFunctionStart (respError) {
+//   errorFunction();
+//   console.log("\n Log Started ");
+// };
+// function errorFunctionEnd (respError) {
+//   errorFunction();
+//   console.log("Log Ended");
+// };
 // errror functions end
 
 
@@ -56,13 +56,14 @@ function getTwitter(){
 
 });
 }
- //spotify
+ //spotify starts here 
 
 function searchSpot(deafaultOption){
 
   if(deafaultOption == ""){
     deafaultOption= "started from the bottom"
   }
+
 
   var spotify = new Spotify(keys.spotify);
 
@@ -81,7 +82,7 @@ function searchSpot(deafaultOption){
         };
 
       }
-  spotify.search({ type: 'track', query: deafSong, limit: searchLimit }, function(respError, response) {
+  spotify.search({ type: 'track', query: deafaultOption, limit: searchLimit }, function(respError, response) {
     fs.appendFile("log.txt", "-----Spotify Log Entry Start-----\nProcessed on:\n" + Date() + "\n\n" + "terminal commands:\n" + process.argv + "\n\n" + "Data Output: \n", errorFunctionStart());
         errorFunction();
 
