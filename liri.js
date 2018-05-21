@@ -1,12 +1,12 @@
 require("dotenv").config();
 var twitter = require('twitter')
 var keys = require("./keys.js");
-var Spotify = require('node-spotify-api');
+var spotify = require('node-spotify-api');
 var request = require('request');
 var fs = require('fs')
 
 var cmd = process.argv[2]
-var searchStuff = '';
+var deafSong = '';
 
 for (var i = 3; i < process.argv.length; i++){
   searchStuff += process.argv[i] + '';
@@ -54,16 +54,52 @@ function getTwitter(){
 }
  //spotify
 
-function searchSpot(){
+function searchSpot(deafSong){
+
+  if(deafSong == ""){
+    deafSong = "started from the bottom"
+  }
+
+  var spotify = new Spotify(keys.spotify);
+
+  var searchLimit = ""
+
+      // Allows the user to input the number of returned spotify results, defaults 1 return if no input given
+      if (isNaN(parseInt(process.argv[3])) == false) {
+        searchLimit = process.argv[3];
+
+        console.log("\nYou requested to return: " + searchLimit + " songs");
+        
+        // Resets the searchValue to account for searchLimit
+        searchValue = "";
+        for (var i = 4; i < process.argv.length; i++) {        
+            searchValue += process.argv[i] + " ";
+        };
+
+      }
+  spotify.search({ type: 'track', query: deafSong, limit: searchLimit }, function(respError, response) {
+    fs.appendFile("log.txt", "-----Spotify Log Entry Start-----\nProcessed on:\n" + Date() + "\n\n" + "terminal commands:\n" + process.argv + "\n\n" + "Data Output: \n", errorFunctionStart());
+        errorFunction();
+
+        var songResp = response.tracks.items;
+
+
+
+        })
 
 
 
 
+  }
 
+  // spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+  //   if (err) {
+  //     return console.log('Error occurred: ' + err);
+  //   }
+   
+  // console.log(data); 
+  // });
 
-
-  
-}
 
 // * `my-tweets`
 
