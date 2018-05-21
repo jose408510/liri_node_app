@@ -7,7 +7,7 @@ var fs = require('fs')
 
 
 var cmd = process.argv[2]
-var deafSong = '';
+var deafaultOption = '';
 
 for (var i = 3; i < process.argv.length; i++){
   searchStuff += process.argv[i] + '';
@@ -113,12 +113,17 @@ function searchSpot(deafaultOption){
 
       errorFunction();
 
-      if (JSON.parse(body).Error == "movie not found! ") {
+      if(JSON.parse(body).Error == "movie not found! ") {
       
         fs.appendFile("log.txt", "I'm sorry, I could not find any movies that matched the title " + deafaultOption + errorFunctionEnd());
         
-      }else{
-        movies; 
+      }
+      else{
+        movieBody = JSON.parse(body);
+        console.log("Moive Title: "+movieBody.Title)
+        console.log("Moive Year: "+movieBody.Year)
+        console.log("The Movies Rating is: "+movieBody.imdbRating)
+        
       }
 
 
@@ -138,10 +143,10 @@ function searchSpot(deafaultOption){
         getTwitter();
         break;
     case "spotify-this-song":
-        searchSpot(deafSong);
+        searchSpot(deafaultOption);
         break;
     case "movie-this":
-        searchMovie(searchValue);
+        movies(deafaultOption);
         break;
     case "do-what-it-says":
         randomSearch();

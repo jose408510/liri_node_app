@@ -1,0 +1,24 @@
+--OMDB Log Entry Start--
+Mon May 21 2018 09:21:12 GMT-0700 (PDT)
+
+terminal commands:
+/usr/local/Cellar/node/9.9.0/bin/node,/Users/josecastellanos/Desktop/Clean_up/liri_node_app/liri.js,movie-this
+
+Data Output: 
+
+--OMDB Log Entry Start--
+Mon May 21 2018 09:21:56 GMT-0700 (PDT)
+
+terminal commands:
+/usr/local/Cellar/node/9.9.0/bin/node,/Users/josecastellanos/Desktop/Clean_up/liri_node_app/liri.js,movie-this
+
+Data Output: 
+
+--OMDB Log Entry Start--
+Mon May 21 2018 09:22:51 GMT-0700 (PDT)
+
+terminal commands:
+/usr/local/Cellar/node/9.9.0/bin/node,/Users/josecastellanos/Desktop/Clean_up/liri_node_app/liri.js,movie-this
+
+Data Output: 
+
