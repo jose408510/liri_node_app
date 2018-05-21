@@ -1,35 +1,69 @@
 require("dotenv").config();
-
-var Twitter = require('twitter');
+var twitter = require('twitter')
+var keys = require("./keys.js");
 var Spotify = require('node-spotify-api');
+var request = require('request');
+var fs = require('fs')
 
- var request = require('request')
- var fs = require('fs')
+var cmd = process.argv[2]
+var searchStuff = '';
 
- console.log(process.argv)
-
- var functionOne = process.argv[2];
- var second = process.argv.slice(3).join("+")
-if(functionOne === "my-tweets"){
-    myTweets()
+for (var i = 3; i < process.argv.length; i++){
+  searchStuff += process.argv[i] + '';
 }
 
-var myTweets = function(){
-    var client = new Twitter({
-        consumer_key: '',
-        consumer_secret: '',
-        access_token_key: '',
-        access_token_secret: ''
-      });
-       
-      var params = {screen_name: 'nodejs'};
-      client.get('statuses/user_timeline', params, function(error, tweets, response) {
-        if (!error) {
-          console.log(tweets);
-        //   for()
-        }
-      });
-}  
+// Error Functions 
+function errorFunction(respError) {
+  if (respError) {
+      return console.log("Error occured: ", respError);
+   }
+};
+function errorFunctionStart (respError) {
+  errorFunction();
+  console.log("\n Log Started ");
+};
+function errorFunctionEnd (respError) {
+  errorFunction();
+  console.log("Log Ended");
+};
+function getTwitter(){
+  var client = new Twitter(keys.twitter); 
+  var params = {screen_name: 'bayareadev510',count: 20};
+
+  
+    client.get('statuses/user_timeline', params, function(respError, tweets, response) {
+
+        errorFunction();
+
+        fs.appendFile("log.txt", "tweets" + Date() + "\n\n" + "terminal commands: \n" + process.argv + "\n\n" + "Data Output: \n\n", errorFunctionStart());
+
+      for(var i = 0; i < tweets.length; i++){
+        console.log(i + 1 + ". Tweet: ", tweets[i].text);
+
+        if (i + 1 > 9) {
+          console.log("    Tweeted on: ", tweets[i].created_at + "\n");
+      } else {
+          console.log("   Tweeted on: ", tweets[i].created_at + "\n");
+      }  
+}
+      fs.appendFile("log.txt", (i + 1) + ". Tweet: " + tweets[i].text + "\nTweeted on: " + tweets[i].created_at + "\n\n", errorFunction());
+
+      fs.appendFile("log.txt", "-----Tweets Log Entry End-----\n\n", errorFunctionEnd());
+
+});
+}
+ //spotify
+
+function searchSpot(){
+
+
+
+
+
+
+
+  
+}
 
 // * `my-tweets`
 
@@ -37,41 +71,6 @@ var myTweets = function(){
 
 //  `movie-this`
 
-// `do-what-it-says`
+// `do-what-it-says'
 
-
-// var client = new Twitter({
-//   consumer_key: '',
-//   consumer_secret: '',
-//   access_token_key: '',
-//   access_token_secret: ''
-// });
- 
-// var params = {screen_name: 'nodejs'};
-// client.get('statuses/user_timeline', params, function(error, tweets, response) {
-//   if (!error) {
-//     console.log(tweets);
-//   }
-// });
-
- var spot = function(){
-// var Spotify = require('node-spotify-api');
- 
-var spotify = new Spotify({
-  id: ,
-//   <your spotify client id>,
-  secret:
-//    <your spotify client secret>
-});
- 
-spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-  if (err) {
-    return console.log('Error occurred: ' + err);
-  }
- 
-console.log(data); 
-console.log(JSON.stringify(data,null ,2)); 
-
-});
-
-}
+//   api key for omdb  http://www.omdbapi.com/?i=tt3896198&apikey=9ed0bd6
