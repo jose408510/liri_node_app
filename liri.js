@@ -1,5 +1,5 @@
 require("dotenv").config();
-var twitter = require('twitter')
+var Twitter = require('twitter')
 var keys = require("./keys.js");
 var spotify = require('node-spotify-api');
 var request = require('request');
